@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8" />
+    <title>Upload Image</title>
+  </head>
+  <body>
+
+     <div class="container py-5">
+
+    <!-- For demo purpose -->
+    <header class="text-white text-center">
+        <h1 class="display-4">Image Conversion Result</h1>
+    </header>
+
+
+    <div class="row py-4">
+        <div class="col-lg-6 mx-auto">
+
+            <p class="font-italic text-white text-center">The cartooned image result will be rendered inside the box below.</p>
+            <div id="aftersubmit" class="image-area mt-4">
+            <img class="result-img img-fluid rounded shadow-sm mx-auto d-block" src="{{image}}";>
+            </div>
+
+        </div>
+    </div>
+</div>
+  </body>
+</html>

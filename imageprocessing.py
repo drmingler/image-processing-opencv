@@ -29,9 +29,11 @@ def index():
             imagename = "cartoon" + concatstr + '.jpg'
             cv2.imwrite(f'static/{imagename}', image)
             cartoon = os.path.join(('static'), imagename)
-            return render_template("result.html", image=cartoon)
+            # return render_template("result.html", image=cartoon)
+            return render_template("results.html", image=cartoon)
 
-    return render_template("imageprocess.html")
+    return render_template("upload.html")
+    #return render_template("imageprocess.html")
 
 
 if __name__ == '__main__':
