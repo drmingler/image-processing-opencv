@@ -1,6 +1,7 @@
 import os
 import random
 import string
+from ImageProcessing.joiner import stich
 
 import cv2
 from flask import Flask, render_template, request, url_for, redirect
@@ -35,7 +36,30 @@ def index():
     return render_template("upload.html")
     #return render_template("imageprocess.html")
 
+files =[]
+@app.route('/multiple', methods=['GET', 'POST'])
+def multiple():
+    if request.method == "POST":
+        file = request.files.get("file")
+        files.append(file)
+        if len(files)>2:
+            filename = secure_filename(files[0].filename)
+            file.save(os.path.join(os.path.abspath('imageProcessing'), filename))
+            filename1 = secure_filename(files[1].filename)
+            file.save(os.path.join(os.path.abspath('imageProcessing'), filename1))
 
+            image1=os.path.join(os.path.abspath('imageProcessing'), filename)
+            image2=os.path.join(os.path.abspath('imageProcessing'), filename1)
+
+            image = stich(image1, image2)
+            files.clear()
+            concatstr = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(5))
+            imagename = "Panorama" + concatstr + '.jpg'
+            cv2.imwrite(f'static/{imagename}', image)
+            Panorama = os.path.join(('static'), imagename)
+            return render_template("results.html", image=Panorama)
+
+    return render_template("multiple.html")
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
