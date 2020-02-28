@@ -25,6 +25,6 @@ def stich(left_i,right_i):
 
     # return pano
 
-image1= os.path.join(os.path.abspath('imageProcessing'), "uttower_left.jpeg")
-image2= os.path.join(os.path.abspath('imageProcessing'), "uttower_right.jpeg")
-stich( "uttower_right.jpeg", "uttower_left.jpeg")
+# image1= os.path.join(os.path.abspath('imageProcessing'), "uttower_left.jpeg")
+# image2= os.path.join(os.path.abspath('imageProcessing'), "uttower_right.jpeg")
+# stich( "uttower_right.jpeg", "uttower_left.jpeg")
