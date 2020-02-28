@@ -36,31 +36,29 @@ def index():
     return render_template("upload.html")
     #return render_template("imageprocess.html")
 
-files =[]
+
 @app.route('/multiple', methods=['GET', 'POST'])
 def multiple():
     if request.method == "POST":
-        file = request.files.get("file")
-        files.append(file)
-        if len(files)>2:
+        for image in request.files.getlist('file'):
+            image.save(os.path.join(os.path.abspath('imageProcessing'), image.filename))
+            print(image)
+        files=request.files.getlist('file')
+        print(files[0].filename)
+        print(files[1].filename)
 
-            filename = files[0].filename
-            file.save(os.path.join(os.path.abspath('imageProcessing'), filename))
-            filename1 =files[1].filename
-            file.save(os.path.join(os.path.abspath('imageProcessing'), filename1))
-            print(files[0].filename)
+        image1=os.path.join(os.path.abspath('imageProcessing'), files[0].filename)
+        image2=os.path.join(os.path.abspath('imageProcessing'), files[1].filename)
+        # image1=str(files[0].filename)
+        # image2 = str(files[1].filename)
 
-            # image1=os.path.join(os.path.abspath('imageProcessing'), filename)
-            # image2=os.path.join(os.path.abspath('imageProcessing'), filename1)
-            image1=str(files[0].filename)
-            image2 = str(files[1].filename)
-            image = stich(image1, image2)
-            files.clear()
-            concatstr = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(5))
-            imagename = "Panorama" + concatstr + '.jpg'
-            cv2.imwrite(f'static/{imagename}', image)
-            Panorama = os.path.join(('static'), imagename)
-            return render_template("results.html", image=Panorama)
+        image = stich(image1, image2)
+
+        concatstr = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(5))
+        imagename = "Panorama" + concatstr + '.jpg'
+        cv2.imwrite(f'static/{imagename}', image)
+        Panorama = os.path.join(('static'), imagename)
+        return render_template("results.html", image=Panorama)
 
 
     return render_template("multiple.html")

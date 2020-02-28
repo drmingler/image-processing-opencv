@@ -35,7 +35,7 @@ def stich(left_i,right_i):
 
     if ret == cv2.STITCHER_OK:
         # cv2.imshow('Panorama', pano)
-        cv2.imwrite('./Panorama.jpg', pano)
+        # cv2.imwrite('./Panorama.jpg', pano)
         cv2.waitKey()
         cv2.destroyAllWindows()
     else:
