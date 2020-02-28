@@ -43,14 +43,17 @@ def multiple():
         file = request.files.get("file")
         files.append(file)
         if len(files)>2:
-            filename = secure_filename(files[0].filename)
+
+            filename = files[0].filename
             file.save(os.path.join(os.path.abspath('imageProcessing'), filename))
-            filename1 = secure_filename(files[1].filename)
+            filename1 =files[1].filename
             file.save(os.path.join(os.path.abspath('imageProcessing'), filename1))
+            print(files[0].filename)
 
-            image1=os.path.join(os.path.abspath('imageProcessing'), filename)
-            image2=os.path.join(os.path.abspath('imageProcessing'), filename1)
-
+            # image1=os.path.join(os.path.abspath('imageProcessing'), filename)
+            # image2=os.path.join(os.path.abspath('imageProcessing'), filename1)
+            image1=str(files[0].filename)
+            image2 = str(files[1].filename)
             image = stich(image1, image2)
             files.clear()
             concatstr = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(5))
@@ -58,6 +61,7 @@ def multiple():
             cv2.imwrite(f'static/{imagename}', image)
             Panorama = os.path.join(('static'), imagename)
             return render_template("results.html", image=Panorama)
+
 
     return render_template("multiple.html")
 if __name__ == '__main__':

@@ -26,8 +26,7 @@
             <!-- Upload image input-->
     <form id ="submit" action="#" method="POST" enctype="multipart/form-data">
             <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-<!--                <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0" multiple/>-->
-                <input id="upload" type="file" name="file" class="form-control border-0" multiple/>
+                <input id="upload" type="file" name="file" onchange="readURL(this);" class="form-control border-0">
                 <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                 <div class="input-group-append">
                     <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
@@ -37,7 +36,6 @@
             <!-- Uploaded image area-->
             <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>
             <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-        <div class="image-area mt-4"><img id="imageResult2" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
 <!--            <div><button class="btns">Submit</button></div>-->
         <div><button class="btns">Convert Image</button></div>
       </form>
@@ -56,107 +54,36 @@
 /*  ==========================================
     SHOW UPLOADED IMAGE
 * ========================================== */
-// function readURL(input) {
-//     if (input.files && input.files[0]) {
-//         var reader = new FileReader();
-//
-//         reader.onload = function (e) {
-//             $('#imageResult')
-//                 .attr('src', e.target.result);
-//         };
-//         reader.readAsDataURL(input.files[0]);
-//     }
-// }
-//
-// $(function () {
-//     $('#upload').on('change', function () {
-//         readURL(input);
-//     });
-// });
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
-// const store =[]
-// function readURL(input) {
-//     if (input.files && input.files[0]) {
-        // for(file of input.files){
-        //     store.push(file)
-        // }
-
-
-
-    //     console.log(input.files)
-    //     var reader = new FileReader();
-    //
-    //     reader.onload = function (e) {
-    //         store.push(e.target.result);
-    //         $('#imageResult')
-    //             .attr('src', store[0]);
-    //         // console.log(store)
-    //         $('#imageResult1')
-    //             .attr('src', store[1]);
-    //         // console.log(store)
-    //     };
-    //
-    //     if (input.files.length>1){
-    //         for (var i = 0; i < input.files.length; i++) {
-    // 	 setTimeout(reader.readAsDataURL(input.files[i]),3000)
-    // }
-
-
-
-        // }
-
-        // input.files.forEach((files)=>{
-        //     reader.readAsDataURL(files);
-        // })
-        // reader.readAsDataURL(input.files[0]);
-    // }
-// }
-
-// $(function () {
-//     $('#upload').on('change', function () {
-//         readURL(input);
-//     });
-// });
-var fileList = [];
-var fileInput = document.getElementById('upload');
-
-fileInput.addEventListener('change', function (evnt) {
-  	for (var i = 0; i < fileInput.files.length; i++) {
-    	fileList.push(fileInput.files[i]);
-    	// console.log(fileInput.files[i]);
-    	// document.getElementById("imageResult").src=fileInput.files[i].name
-
+        reader.onload = function (e) {
+            $('#imageResult')
+                .attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
     }
-  });
+}
 
-fileCatcher = document.getElementById("submit");
-  fileCatcher.addEventListener('submit', function (evnt) {
-  	evnt.preventDefault();
-    fileList.forEach(function (file) {
-    	sendFile(file);
+$(function () {
+    $('#upload').on('change', function () {
+        readURL(input);
     });
-  });
+});
 
-sendFile = function (file) {
-  	var formData = new FormData();
-    var request = new XMLHttpRequest();
-
-    formData.set('file', file);
-    request.open("POST", "{{ url_for('multiple') }}");
-    request.send(formData);
-  };
 /*  ==========================================
     SHOW UPLOADED IMAGE NAME
 * ========================================== */
-// var input = document.getElementById( 'upload' );
-// var infoArea = document.getElementById( 'upload-label' );
-//
-// input.addEventListener( 'change', showFileName );
-// function showFileName( event ) {
-//   var input = event.srcElement;
-//   var fileName = input.files[0].name;
-//   infoArea.textContent = 'File name: ' + fileName;
-// }
+var input = document.getElementById( 'upload' );
+var infoArea = document.getElementById( 'upload-label' );
+
+input.addEventListener( 'change', showFileName );
+function showFileName( event ) {
+  var input = event.srcElement;
+  var fileName = input.files[0].name;
+  infoArea.textContent = 'File name: ' + fileName;
+}
     </script>
   </body>
 </html>
